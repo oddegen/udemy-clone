@@ -1,4 +1,5 @@
 import Accordian from "@/Components/Accordian";
+import CourseList from "@/Components/ui/CourseList";
 import { Link, Head } from "@inertiajs/react";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
@@ -94,6 +95,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Udemy" />
             <div>Welcome</div>
             <Accordian sections={sections} />
+            <CourseList />
         </>
     );
 }
