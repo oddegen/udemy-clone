@@ -3,6 +3,7 @@ import CardList from "@/Components/CardList";
 import CourseList from "@/Components/CourseList";
 import CourseReview from "@/Components/CourseReview";
 import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/ui/Footer";
 import { Head } from "@inertiajs/react";
 
 export default function Welcome({ auth }) {
@@ -15,11 +16,9 @@ export default function Welcome({ auth }) {
             <Navbar user={auth.user} />
             <CourseList />
             <CardList />
-            <CourseReview />
+            {/* <CourseReview /> */}
 
-            <footer className="py-16 text-center text-sm text-black dark:text-white/70">
-              {/* Laravel v{laravelVersion} (PHP v{phpVersion}) */}
-            </footer>
+            <Footer />
           </div>
         </div>
       </div>
