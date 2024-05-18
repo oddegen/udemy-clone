@@ -1,8 +1,7 @@
-import Accordian from "@/Components/Accordian";
-import Navbar from "@/Components/Navbar";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function CoursePage({auth, course}) {
+export default function CoursePage({auth}) {
     const sections = [
         {
           title: "Section 1",
@@ -88,11 +87,21 @@ export default function CoursePage({auth, course}) {
         },
       ];
     return (
-        <>
-        <Head title={course.slug}/>
-        <Navbar auth={auth.user} />
-        <Accordian sections={sections} />
-        {course.slug}
-        </>
-    )
+        <AuthenticatedLayout user={auth.user}>
+            <Head title='cource' />
+
+        {/* use Accordian component in your work it is Already done */}
+        {/* your implementation starts */}
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900">
+                            Cource Details Page
+                        </div>
+                    </div>
+                </div>
+        </div>
+        {/* your implementation ends */}
+        </AuthenticatedLayout>
+    );
 }
