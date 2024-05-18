@@ -1,24 +1,8 @@
 import { useState } from "react";
-import { Link, router } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import PropTypes from "prop-types";
+import ApplicationLogo from "./ui/ApplicationLogo";
 
-const categories = [
-    "Development",
-    "Web Development",
-    "Mobile Development",
-    "Programming",
-    "Data Science",
-    "Design",
-    "Business",
-    "Marketing",
-    "Finance",
-    "Photography",
-    "Music",
-    "Personal Development",
-    "Health & Fitness",
-    "Lifestyle",
-    "Languages",
-];
 
 function NavLinkItem({ className = "", children, ...props }) {
     return (
@@ -27,15 +11,15 @@ function NavLinkItem({ className = "", children, ...props }) {
         </Link>
     );
 }
-NavLinkItem.propTypes = {
-    text: PropTypes.string.isRequired,
-    className: PropTypes.string,
-};
 
+NavLinkItem.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+};
 function CartNavLink() {
     return (
         <div className="px-2 self-center">
-            <a className="">
+            <Link href="/cart">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"
@@ -49,21 +33,17 @@ function CartNavLink() {
                         strokeWidth="2"
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />
-                </svg>{" "}
-            </a>
+                </svg>
+            </Link>
         </div>
     );
 }
 
 function ProfileNavLink({ user }) {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-    const handleMouseEnter = () => {
-        setShowProfileDropdown(true);
-    };
 
-    const handleMouseLeave = () => {
-        setShowProfileDropdown(false);
-    };
+    const handleMouseEnter = () => setShowProfileDropdown(true);
+    const handleMouseLeave = () => setShowProfileDropdown(false);
 
     return (
         <div
@@ -71,17 +51,22 @@ function ProfileNavLink({ user }) {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <a className="flex justify-center items-center w-10 h-10 rounded-full bg-black text-white text-center text-xl">
-                <span className="font-extrabold">E</span>
-            </a>
+            <div className="flex justify-center items-center w-10 h-10 rounded-full bg-black text-white text-center text-xl">
+                <span className="font-extrabold">{user.name.charAt(0)}</span>
+            </div>
             <div
                 className={`flex flex-col absolute top-12 right-1 w-64 border border-slate-300 bg-white ${
                     showProfileDropdown ? "block" : "hidden"
                 }`}
             >
-                <a className="flex gap-4 border-b border-slate-300 p-4">
+                <Link
+                    className="flex gap-4 border-b border-slate-300 p-4"
+                    href="/profile"
+                >
                     <div className="flex justify-center items-center w-16 h-16 rounded-full bg-black text-white text-center text-xl">
-                        <span className="font-extrabold">E</span>
+                        <span className="font-extrabold">
+                            {user.name.charAt(0)}
+                        </span>
                     </div>
                     <div>
                         <p className="font-bold hover:text-purple-700 cursor-pointer">
@@ -89,11 +74,11 @@ function ProfileNavLink({ user }) {
                         </p>
                         <p className="font-thin">{user.email}</p>
                     </div>
-                </a>
+                </Link>
                 <div className="flex flex-col gap-4 p-4 border-b border-slate-300">
-                    <a href="#" className="hover:text-purple-700">
+                    <Link href="/cart" className="hover:text-purple-700">
                         Cart
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex flex-col gap-4 p-4 border-b border-slate-300">
                     <Link
@@ -111,17 +96,30 @@ function ProfileNavLink({ user }) {
                     </Link>
                 </div>
                 <div className="flex flex-col gap-4 p-4 border-b border-slate-300">
-                    <NavLinkItem className="hover:text-purple-700">
-                        Tech on Udemy
+                    <NavLinkItem
+                        className="hover:text-purple-700"
+                        href="/teach"
+                    >
+                        Teach on Udemy
                     </NavLinkItem>
-                    <NavLinkItem className="hover:text-purple-700">
-                        my learnings
+                    <NavLinkItem
+                        className="hover:text-purple-700"
+                        href="/my-learnings"
+                    >
+                        My Learnings
                     </NavLinkItem>
                 </div>
             </div>
         </div>
     );
 }
+
+ProfileNavLink.propTypes = {
+    user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 function SearchBar() {
     return (
@@ -159,46 +157,57 @@ function SearchBar() {
     );
 }
 
-function Category({ children: name }) {
+function Category({ children }) {
     return (
-        <li className="pb-2 hover:text-purple-700 cursor-pointer">{name}</li>
+        <li className="pb-2 hover:text-purple-700 cursor-pointer">
+            {children}
+        </li>
     );
 }
+
 Category.propTypes = {
-    name: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
-export default function Navbar({ user }) {
+
+const categories = [
+    "Development",
+    "Web Development",
+    "Mobile Development",
+    "Programming",
+    "Data Science",
+    "Design",
+    "Business",
+    "Marketing",
+    "Finance",
+    "Photography",
+    "Music",
+    "Personal Development",
+    "Health & Fitness",
+    "Lifestyle",
+    "Languages",
+];
+
+function Navbar({ user }) {
     const [showCategories, setShowCategories] = useState(false);
 
-    const handleMouseEnter = () => {
-        setShowCategories(true);
-    };
-
-    const handleMouseLeave = () => {
-        setShowCategories(false);
-    };
+    const handleMouseEnter = () => setShowCategories(true);
+    const handleMouseLeave = () => setShowCategories(false);
 
     return (
         <nav className="flex align-center min-h-16 w-full justify-between bg-base-100 py-2 px-10 text-sm gap-4 shadow-2xl">
             <div className="flex align-center flex-shrink-0">
-                <a className="h-full flex-shrink-0">
-                    <Link href="/">
-                        <img
-                            src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
-                            alt="Udemy"
-                            width="100"
-                            height="50"
-                            loading="lazy"
-                        ></img>
-                    </Link>
-                </a>
+                <Link href="/" className="h-full flex-shrink-0">
+                    <ApplicationLogo/>
+                </Link>
                 <div
                     className="h-full px-2 py-2 self-center items-center relative flex-shrink-0"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <a className="px-5 my-10">Categories</a>
+                    <Link className="px-5 my-10" href="#">
+                        Categories
+                    </Link>
                     <div
                         className={`absolute top-12 w-64 bg-white ${
                             showCategories ? "block" : "hidden"
@@ -216,12 +225,12 @@ export default function Navbar({ user }) {
             <SearchBar />
             <div className="flex align-center">
                 <div className="flex align-center gap-2">
-                    <NavLinkItem className="self-center px-2 text-center">
-                        Tech on Udemy
+                    <NavLinkItem className="self-center px-2 text-center" href="/teach">
+                        Teach on Udemy
                     </NavLinkItem>
                     {user && (
-                        <NavLinkItem className="self-center px-2">
-                            my learnings
+                        <NavLinkItem className="self-center px-2" href="/my-learnings">
+                            My Learnings
                         </NavLinkItem>
                     )}
                     <CartNavLink />
@@ -252,3 +261,12 @@ export default function Navbar({ user }) {
         </nav>
     );
 }
+
+Navbar.propTypes = {
+    user: PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.string,
+    }),
+};
+
+export default Navbar;

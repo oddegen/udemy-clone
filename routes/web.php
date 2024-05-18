@@ -10,10 +10,29 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/result', function(){
+    return Inertia::render('SearchResult',[]);
+});
+
+Route::get('/course', function(){
+    return Inertia::render('CoursePage',[]);
+});
+
+Route::get('/cart', function(){
+    return Inertia::render('Cart',[]);
+});
+
+Route::get('/teaching', function(){
+    return Inertia::render('Teaching',[]);
+});
+
+Route::get('/learn', function(){
+    return Inertia::render('Learn',[]);
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +40,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('courses', CourseController::class)->only(['index','store'])->middleware(['auth']);
-Route::get("courses/{course:slug}", [CourseController::class,"show"])->name("course.show");
 
 require __DIR__.'/auth.php';
