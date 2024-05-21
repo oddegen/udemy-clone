@@ -1,6 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-
+import Accordian from "@/Components/Accordian"; 
+import React from 'react'; 
+import CardList from "@/Components/CardList";
+import CourseList from "@/Components/CourseList";
+import CourseReview from "@/Components/CourseReview";
+import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/ui/Footer";
+import Cart from "./Cart";
 export default function CoursePage({auth}) {
     const sections = [
         {
@@ -88,17 +95,28 @@ export default function CoursePage({auth}) {
       ];
     return (
         <AuthenticatedLayout user={auth.user}>
-            <Head title='cource' />
-
-        {/* use Accordian component in your work it is Already done */}
-        {/* your implementation starts */}
+            <Head title='course' />  
+            {/* use Accordian component in your work it is Already done */}
+            {sections.map((section, index) => (
+            <Accordian key={index} section={section} />
+          ))}
+      
+        {/* your implementation starts */} 
+         
             <div className="py-12">
+                {<Navbar/>}
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                     
                         <div className="p-6 text-gray-900">
                             Cource Details Page
-                        </div>
-                    </div>
+            { <CourseList /> }
+            { <CourseReview /> }
+            {<CardList/>}
+            {<Cart/>} 
+                        </div> 
+                       {<Footer/>}           
+                    </div>   
                 </div>
         </div>
         {/* your implementation ends */}
