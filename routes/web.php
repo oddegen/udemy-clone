@@ -16,7 +16,6 @@ Route::get('/', function () {
 Route::get('/result', function(){
     return Inertia::render('SearchResult',[]);
 });
-
 Route::get('/course', function(){
     return Inertia::render('CoursePage',[]);
 });

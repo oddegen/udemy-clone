@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
-            $table->string('preview_path');
-            $table->text('short_desc');
-            $table->string('language');
-            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->text('comment');
+            $table->integer('rating')->nullable()->default(null)->constrained()->check('rating BETWEEN 1 AND 5');
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('ratings');
     }
 };

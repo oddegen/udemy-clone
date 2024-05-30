@@ -20,13 +20,15 @@ class CourseFactory extends Factory
 
     public function definition()
     {
-        $title = $this->faker->sentence(3);
-        $slug = Str::slug($title);
-
-        return [
-            'title' => $title,
-            'slug' => $slug,
-            'description' => $this->faker->paragraph(4),
+        return[
+            'title' => fake()->sentence(),
+            'description' => fake()->paragraph(),
+            'price' => fake()->numberBetween(10, 100),
+            'preview_path' => 'course_previews/' . fake()->lexify('??????') . '.mp4', // Generates a random video file path
+            'language' => 'English',
+            'short_desc' => fake()->sentence(),
+            'category_id' => fake()->numberBetween(1, 14),
+            'user_id' => fake()->numberBetween(1, 3),
         ];
     }
 }
