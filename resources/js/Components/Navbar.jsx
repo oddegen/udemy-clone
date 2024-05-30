@@ -198,7 +198,7 @@ function Navbar({ user }) {
         <nav className="flex align-center min-h-16 w-full justify-between bg-base-100 py-2 px-10 text-sm gap-4 shadow-2xl">
             <div className="flex align-center flex-shrink-0">
                 <Link href="/" className="h-full flex-shrink-0">
-                    <ApplicationLogo/>
+                    <ApplicationLogo />
                 </Link>
                 <div
                     className="h-full px-2 py-2 self-center items-center relative flex-shrink-0"
@@ -225,11 +225,27 @@ function Navbar({ user }) {
             <SearchBar />
             <div className="flex align-center">
                 <div className="flex align-center gap-2">
-                    <NavLinkItem className="self-center px-2 text-center" href="/teach">
+                    {user && user.isLecturer ? (
+                        <NavLinkItem
+                        className="self-center px-2 text-center"
+                        href="/teach"
+                    >
+                        Instructor
+                    </NavLinkItem>
+                    ): (
+                    <NavLinkItem
+                        className="self-center px-2 text-center"
+                        href="/teach"
+                    >
                         Teach on Udemy
                     </NavLinkItem>
+                            
+                    )}
                     {user && (
-                        <NavLinkItem className="self-center px-2" href="/my-learnings">
+                        <NavLinkItem
+                            className="self-center px-2"
+                            href="/my-learnings"
+                        >
                             My Learnings
                         </NavLinkItem>
                     )}
