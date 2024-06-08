@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// import StarIcon from "@mui/icons-material/Star";
-// import PeopleIcon from "@mui/icons-material/People";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
+import StarRatings from "react-star-ratings";
 
 const CourseList = () => {
   const courses = [
@@ -17,7 +15,7 @@ const CourseList = () => {
     },
     {
       instructorImg: "https://randomuser.me/api/portraits/women/2.jpg",
-      courseName: "Advanced React Techniques",
+      courseName: "Advanced React Techniques with jonas schmedtman",
       rating: 5,
       enrolledStudents: "2,000,000",
       subscriptionFee: 69.99,
@@ -28,7 +26,7 @@ const CourseList = () => {
   ];
 
   return (
-    <div className="p-6">
+    <div className=" w-3/4 p-3">
       {courses.map((course, index) => (
         <CourseListItem key={index} {...course} />
       ))}
@@ -37,67 +35,44 @@ const CourseList = () => {
 };
 
 const CourseListItem = ({
-  instructorImg,
   courseName,
   rating,
-  enrolledStudents,
   subscriptionFee,
-  totalHours,
-  dateUpdated,
-  isBestseller,
+  courses
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
 
   return (
-    <div className="flex items-center mb-4 p-4 border border-gray-300 rounded-lg">
-      <img
-        src={instructorImg}
-        alt="Instructor"
-        className="w-36 h-36 mr-4 object-cover"
-      />
-      <div className="flex-1 mr-4">
-        <div className="mb-2 font-bold text-lg">{courseName}</div>
-        <div className="text-gray-600 text-sm mb-2">
-          {isBestseller && (
-            <span className="mr-2 bg-yellow-500 text-white px-2 py-1 rounded">
-              Bestseller
-            </span>
-          )}
-          <span>
-            &bull; {totalHours} Hours &bull; Updated: {dateUpdated}
-          </span>
-        </div>
-        <div className="flex items-center">
-          <div className="flex items-center mr-4 text-gray-600">
-            {/* <StarIcon className="text-yellow-500 mr-1" /> */}
-            <span>{rating}/5</span>
+      <div className="flex items-center mb-4 border-b border-gray-400 w-full">
+          <img
+              src="https://source.unsplash.com/random/300x200?oop"
+              alt="course image"
+              className="w-40 h-28 mr-4 object-cover"
+          />
+          <div className="flex-1 flex justify-between mr-4 w-full">
+              <div className="flex flex-col">
+                  <div className="font-bold text-md text-wrap">
+                      {courseName}
           </div>
-          <div className="flex items-center mr-4 text-gray-600">
-            {/* <PeopleIcon className="mr-1" /> */}
-            <span>{enrolledStudents}</span>
+          <p className="text-sm text-gray-900">short description of the course</p>
+                  <div className="text-sm text-gray-400"> jonass schmedtman</div>
+                  <div className="flex mr-4 text-gray-600">
+                    <span className="text-bold me-3 text-black">
+                        {rating}{" "}
+                    </span>
+                    <StarRatings
+                        rating={rating}
+                        starRatedColor="gold"
+                        starDimension="12px"
+                        starSpacing="0px"
+                    />
+                    <span>(1222)</span>
+                  </div>
+              </div>
+              <div className="w-6 me-3 font-bold text-lg text-gray-600">
+                  ${subscriptionFee}
+              </div>
           </div>
-        </div>
       </div>
-      <div className="font-bold text-lg text-gray-600 mr-8">
-        ${subscriptionFee}
-      </div>
-      <div
-        className="relative w-10 h-10 rounded-full border-2 border-gray-300 cursor-pointer"
-        onClick={toggleFavorite}
-      >
-        <div
-          className={`absolute top-0 left-0 w-full h-full flex justify-center items-center ${
-            isFavorite ? "text-red-500" : "text-gray-300"
-          }`}
-        >
-          {/* <FavoriteIcon /> */}
-        </div>
-      </div>
-    </div>
   );
 };
 

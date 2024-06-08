@@ -1,21 +1,42 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
+use App\Models\Course;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+    $courses = Course::with([
+        'creator',
+        'students',
+        'category',
+        'requirements',
+        'sections',
+        'rating',
+        'for'
+    ])
+    ->withAvg('rating', 'rating')
+    ->withCount('rating')
+    ->orderByDesc ('rating_avg_rating')
+    ->take(20)
+    ->get();
+    
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'courses' => $courses,
     ]);
 });
 
-Route::get('/result', function(){
-    return Inertia::render('SearchResult',[]);
-});
+Route::get('/categories', [CategoryController::class, 'index']);
+
+Route::get('/search',[SearchController::class,'search'])->name('search');
+
+
 Route::get('/course', function(){
     return Inertia::render('CoursePage',[]);
 });

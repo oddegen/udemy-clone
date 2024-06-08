@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia"
 import PropTypes from "prop-types";
 import ApplicationLogo from "./ui/ApplicationLogo";
+import { useCategories } from "@/Contexts/CategoyContext";
 
 
 function NavLinkItem({ className = "", children, ...props }) {
@@ -47,7 +49,7 @@ function ProfileNavLink({ user }) {
 
     return (
         <div
-            className="flex justify-center items-center h-full w-16 flex-shrink-0 relative"
+            className="flex justify-center items-center h-full w-16 flex-shrink-0 relative bg-white"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -122,9 +124,24 @@ ProfileNavLink.propTypes = {
 };
 
 function SearchBar() {
+    const [query, setQuery] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (query.length > 0) {
+            console.log('hear we go ');
+            Inertia.get('/search', { q: query });
+        }
+    }
+    const handleKeyDown = (e) => {
+        if (e.key == 'Enter') {
+            handleSubmit(e);
+        }
+    }
+
     return (
         <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl">
-            <form action="#" className="flex min-w-56">
+            <form onSubmit={handleSubmit} method="get" className="flex min-w-56">
                 <button
                     className="p-1 disabled:opacity-50 w-10 ms-4 mt-2"
                     type="submit"
@@ -149,6 +166,8 @@ function SearchBar() {
                     type="text"
                     id="search"
                     name="q"
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Search for anything"
                     className="w-full h-8 mt-2 ms-3 me-6 border-none outline-none focus:border-none focus:outline-none focus:ring-0 bg-inherit"
                 />
@@ -170,32 +189,16 @@ Category.propTypes = {
 };
 
 
-const categories = [
-    "Development",
-    "Web Development",
-    "Mobile Development",
-    "Programming",
-    "Data Science",
-    "Design",
-    "Business",
-    "Marketing",
-    "Finance",
-    "Photography",
-    "Music",
-    "Personal Development",
-    "Health & Fitness",
-    "Lifestyle",
-    "Languages",
-];
-
 function Navbar({ user }) {
+    const categories = useCategories();
     const [showCategories, setShowCategories] = useState(false);
+
 
     const handleMouseEnter = () => setShowCategories(true);
     const handleMouseLeave = () => setShowCategories(false);
 
     return (
-        <nav className="flex align-center min-h-16 w-full justify-between bg-base-100 py-2 px-10 text-sm gap-4 shadow-2xl">
+        <nav className="flex align-center min-h-16 w-full justify-between bg-base-100 py-2 px-10 text-sm gap-4 shadow-md">
             <div className="flex align-center flex-shrink-0">
                 <Link href="/" className="h-full flex-shrink-0">
                     <ApplicationLogo />
@@ -214,8 +217,8 @@ function Navbar({ user }) {
                         }`}
                     >
                         <ul className="p-3">
-                            {categories.map((category, index) => (
-                                <Category key={index}>{category}</Category>
+                            {categories.map((category) => (
+                                <Category key={category.id}>{category.name}</Category>
                             ))}
                         </ul>
                     </div>
