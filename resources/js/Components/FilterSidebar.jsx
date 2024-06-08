@@ -23,7 +23,7 @@ const FilterSidebar = ({handleRatingFilterChange}) => {
         <div className="w-1/4 p-4 bg-white">
             <Filter text="Ratings">
                 <ul className="mt-2">
-                    {[4.5, 4.0, 3.5, 3.0].map((rating, index) => {
+                    {[4.5, 4.0, 3.5, 3.0].map((rating, index) => (
                         <li key={index} className="mt-1">
                             <input
                                 type="radio"
@@ -43,7 +43,7 @@ const FilterSidebar = ({handleRatingFilterChange}) => {
                             <span className="text-sm text-gray-400">{rating} & up</span>
                         </li>
                         
-                    })}
+                    ))}
                 </ul>
             </Filter>
         </div>

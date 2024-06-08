@@ -142,7 +142,7 @@ function SearchBar() {
     }
 
     return (
-        <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl">
+        <div className="relative flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl">
             <form onSubmit={handleSubmit} className="flex min-w-56">
                 <button
                     className="p-1 disabled:opacity-50 w-10 ms-4 mt-2"

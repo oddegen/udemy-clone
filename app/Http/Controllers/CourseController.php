@@ -35,10 +35,11 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($slug)
+    public function show($id)
     {
         //
-        $course = Course::where("slug", $slug)->firstOrFail();
+        $course = Course::findOrFail($id);
+
         return Inertia::render("CoursePage", [
             "course"=> $course
         ]);
