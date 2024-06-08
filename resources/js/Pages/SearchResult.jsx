@@ -31,10 +31,10 @@ export default function SearchResult({ auth }) {
             <Head title="Search Results" />
             <div className="mx-80 mt-10 mb-10">
                 <div>
-                    <p className="font-bold text-xl"><span>1000</span> Results for <span>Software Engineering</span></p>
+                    <p className="font-bold text-xl"><span>{ Object.keys(filteredCourses).length}</span> Results for <span>{query}</span></p>
                 </div>
                 <div className="flex justify-start gap-6 my-5">
-                    <div class="relative">
+                    <div className="relative">
                         <select
                             id="sort-by"
                             class="px-4 py-2 bg-gray-200 rounded-md appearance-none pr-8"
@@ -45,7 +45,7 @@ export default function SearchResult({ auth }) {
                             <option value="rating_asc">Rating: Ascending</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                             </svg>
                         </div>
