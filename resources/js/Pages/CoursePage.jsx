@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import React from 'react'; 
+import { usePage } from "@inertiajs/inertia-react";
 import CardList from "@/Components/CardList";
 import CourseList from "@/Components/CourseList";
 import CourseReview from "@/Components/CourseReview";
@@ -90,6 +91,8 @@ export default function CoursePage({auth}) {
       ],
     },
   ];
+  const { props } = usePage();
+  const { courseId } = props;
   return (
     <AuthenticatedLayout user={auth.user}>
       <Head title='course' />  
@@ -99,7 +102,7 @@ export default function CoursePage({auth}) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             
             <div className="p-6 text-gray-900">
-              Cource Details Page
+              Cource Details Page for course id {courseId}
                 <CourseList /> 
                 <CourseReview /> 
               <CardList/>

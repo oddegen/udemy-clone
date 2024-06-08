@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia"
 import PropTypes from "prop-types";
+import { useForm } from '@inertiajs/inertia-react';
 import ApplicationLogo from "./ui/ApplicationLogo";
 import { useCategories } from "@/Contexts/CategoyContext";
 
@@ -124,28 +124,26 @@ ProfileNavLink.propTypes = {
 };
 
 function SearchBar() {
-    const [query, setQuery] = useState('');
+    const { data, setData, get, processing } = useForm({ q: '' });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (query.length > 0) {
-            console.log('hear we go ');
-            Inertia.get('/search', { q: query });
-        }
-    }
-    const handleKeyDown = (e) => {
-        if (e.key == 'Enter') {
-            handleSubmit(e);
+        if (data.q.length > 0) {
+            get(route('search'));
         }
     }
 
     return (
-        <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl">
-            <form onSubmit={handleSubmit} method="get" className="flex min-w-56">
+        <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl relative">
+            <form
+                onSubmit={handleSubmit}
+                method="get"
+                className="flex min-w-56"
+            >
                 <button
                     className="p-1 disabled:opacity-50 w-10 ms-4 mt-2"
                     type="submit"
-                    disabled
+                    disabled={processing}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -166,15 +164,19 @@ function SearchBar() {
                     type="text"
                     id="search"
                     name="q"
-                    onChange={(e) => setQuery(e.target.value)}
-                    onKeyDown={handleKeyDown}
+                    value={data.q}
+                    onChange={(e) => setData('q', e.target.value)}
                     placeholder="Search for anything"
                     className="w-full h-8 mt-2 ms-3 me-6 border-none outline-none focus:border-none focus:outline-none focus:ring-0 bg-inherit"
                 />
+                <button type="submit" className="absolute ms-4 me-3 bg-purple-300 top-0 h-full -right-3 px-3 rounded-e-3xl hover:bg-purple-200" disabled={processing}>
+                    Search
+                </button>
             </form>
         </div>
     );
 }
+
 
 function Category({ children }) {
     return (

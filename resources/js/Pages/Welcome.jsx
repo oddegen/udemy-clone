@@ -30,17 +30,19 @@ export default function Welcome({ auth, courses }) {
                               />
                           </div>
                       </div>
-                      <div className="flex justify-between mt-6">
-                          <h2 className="text-3xl">
-                              Let's start learning, {auth.user.name}
-                          </h2>
-                          <a
-                              href="/my-learning"
-                              className="text-purple-600 mt-2 inline-block"
-                          >
-                              My learning
-                          </a>
-                      </div>
+                        {auth.user && (
+                          <div className="flex justify-between mt-6">
+                            <h2 className="text-3xl">
+                              Let's start learning, {auth.user.name}</h2>
+                              <a
+                                  href="/my-learning"
+                                  className="text-purple-600 mt-2 inline-block"
+                              >
+                                  My learning
+                              </a>
+                          </div>
+                        ) }
+                              
                   </div>
                   <CardList courses={courses} />
                   {/* <CourseReview /> */}
