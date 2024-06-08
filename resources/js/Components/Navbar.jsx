@@ -128,7 +128,6 @@ function SearchBar() {
         q: '',
       })
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.q.length > 0) {
@@ -148,7 +147,7 @@ function SearchBar() {
                 <button
                     className="p-1 disabled:opacity-50 w-10 ms-4 mt-2"
                     type="submit"
-                    disabled
+                    disabled={processing}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -174,6 +173,9 @@ function SearchBar() {
                     placeholder="Search for anything"
                     className="w-full h-8 mt-2 ms-3 me-6 border-none outline-none focus:border-none focus:outline-none focus:ring-0 bg-inherit"
                 />
+                <button type="submit" className="absolute ms-4 me-3 bg-purple-300 top-0 h-full -right-3 px-3 rounded-e-3xl hover:bg-purple-200" disabled={processing}>
+                    Search
+                </button>
             </form>
         </div>
     );

@@ -30,7 +30,6 @@ class SearchController extends Controller
                             ->select('courses.*')
                             ->orderByDesc ('rating_avg_rating')
                             ->get();
-
         return Inertia::render('SearchResult', [
             'courses' => $courses,
             'query' => $query,

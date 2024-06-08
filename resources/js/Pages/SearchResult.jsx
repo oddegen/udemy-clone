@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function SearchResult({ auth }) {
     const { courses, query } = usePage().props;
-    console.log(query);
     const [sortBy, setSortBy] = useState('rating_desc');
     const [ratingFilter, setRatingFilter] = useState(null);
 

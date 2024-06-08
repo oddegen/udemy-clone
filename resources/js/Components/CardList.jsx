@@ -1,15 +1,20 @@
 import React from "react";
 import StarRatings from "react-star-ratings";
-// import StarIcon from "@mui/icons-material/Star";
+import { Inertia } from "@inertiajs/inertia";
 
 const CardList = ({ courses }) => {
-//   console.log(courses);
+  console.log(courses);
+  const handleClick = (course) => {
+      Inertia.get(`/course/${course.id}`);
+  };
+// import StarIcon from "@mui/icons-material/Star";
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
           {Object.values(courses).map((course) => (
               <div
                   key={course.id}
                   className="bg-white shadow-md rounded-md overflow-hidden"
+                  onClick={() => handleClick(course)}
               >
                   <img
                       className="h-40 w-full object-cover"
@@ -27,13 +32,15 @@ const CardList = ({ courses }) => {
                           <span className="text-md me-2">
                               {course.rating_avg_rating.toFixed(1)}
                           </span>
-                        <StarRatings
-                          rating={course.rating_avg_rating}
-                          starRatedColor="gold"
-                          starDimension="12px"
-                          starSpacing="0px"
-                        />
-                        <span className="ms-2 text-gray-400">({course.rating_count})</span>
+                          <StarRatings
+                              rating={course.rating_avg_rating}
+                              starRatedColor="gold"
+                              starDimension="12px"
+                              starSpacing="0px"
+                          />
+                          <span className="ms-2 text-gray-400">
+                              ({course.rating_count})
+                          </span>
                       </div>
                       <p className="text-lg font-semibold text-green-700">
                           Price: ${course.price.toFixed(2)}

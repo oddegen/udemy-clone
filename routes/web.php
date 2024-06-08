@@ -37,9 +37,9 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/search',[SearchController::class,'search'])->name('search');
 
 
-Route::get('/course', function(){
-    return Inertia::render('CoursePage',[]);
-});
+Route::get('/course/{id}', function ($id) {
+    return Inertia::render('CoursePage', ['courseId' => $id]);
+})->name('course.show');
 
 Route::get('/cart', function(){
     return Inertia::render('Cart',[]);
