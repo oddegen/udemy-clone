@@ -9,7 +9,7 @@ use Inertia\Inertia;
 class SearchController extends Controller
 {
     public function search(Request $request){
-        $query = $request->input('q');
+        $query = $request->query('q');
         $courses = Course::query()
                             ->leftJoin('categories','courses.category_id', '=', 'categories.id')
                             ->leftJoin('users', 'courses.user_id', '=', 'users.id')
@@ -31,7 +31,7 @@ class SearchController extends Controller
                             ->orderByDesc ('rating_avg_rating')
                             ->get();
 
-        Inertia::render('SearchResult', [
+        return Inertia::render('SearchResult', [
             'courses' => $courses,
             'query' => $query,
         ]);

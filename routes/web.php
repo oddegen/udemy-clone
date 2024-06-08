@@ -21,7 +21,7 @@ Route::get('/', function () {
     ])
     ->withAvg('rating', 'rating')
     ->withCount('rating')
-    ->orderByDesc ('rating_avg_rating')
+    ->orderByDesc('rating_avg_rating')
     ->take(20)
     ->get();
     

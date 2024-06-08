@@ -1,11 +1,12 @@
 import CourseList from "@/Components/CourseList";
 import FilterSidebar from "@/Components/FilterSidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function SearchResult({ auth }) {
     const { courses, query } = usePage().props;
+    console.log(query);
     const [sortBy, setSortBy] = useState('rating_desc');
     const [ratingFilter, setRatingFilter] = useState(null);
 

@@ -3,7 +3,7 @@ import StarRatings from "react-star-ratings";
 // import StarIcon from "@mui/icons-material/Star";
 
 const CardList = ({ courses }) => {
-  console.log(courses);
+//   console.log(courses);
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
           {Object.values(courses).map((course) => (
