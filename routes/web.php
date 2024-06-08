@@ -35,8 +35,6 @@ Route::get('/', function () {
 Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::get('/search',[SearchController::class,'search'])->name('search');
-
-
 Route::get('/course/{id}',[CourseController::class, 'show'])->name('course.show');
 
 Route::get('/cart', function(){
