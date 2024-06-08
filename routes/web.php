@@ -21,7 +21,7 @@ Route::get('/', function () {
     ])
     ->withAvg('rating', 'rating')
     ->withCount('rating')
-    ->orderByDesc ('rating_avg_rating')
+    ->orderByDesc('rating_avg_rating')
     ->take(20)
     ->get();
     
@@ -40,7 +40,6 @@ Route::get('/search',[SearchController::class,'search'])->name('search');
 Route::get('/course/{id}', function ($id) {
     return Inertia::render('CoursePage', ['courseId' => $id]);
 })->name('course.show');
-
 
 Route::get('/cart', function(){
     return Inertia::render('Cart',[]);

@@ -42,7 +42,6 @@ export default function Welcome({ auth, courses }) {
                               </a>
                           </div>
                         ) }
-                              
                   </div>
                   <CardList courses={courses} />
                   {/* <CourseReview /> */}

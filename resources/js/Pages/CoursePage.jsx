@@ -91,6 +91,7 @@ export default function CoursePage({auth}) {
       ],
     },
   ];
+  
   const { props } = usePage();
   const { courseId } = props;
   return (

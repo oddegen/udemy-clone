@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia"
 import PropTypes from "prop-types";
-import { useForm } from '@inertiajs/inertia-react';
 import ApplicationLogo from "./ui/ApplicationLogo";
 import { useCategories } from "@/Contexts/CategoyContext";
 
@@ -124,22 +124,26 @@ ProfileNavLink.propTypes = {
 };
 
 function SearchBar() {
-    const { data, setData, get, processing } = useForm({ q: '' });
+    const { data, setData, get, processing, errors } = useForm({
+        q: '',
+      })
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (data.q.length > 0) {
-            get(route('search'));
+            // console.log('hear we go ');
+            get('/search');
+        }
+    }
+    const handleKeyDown = (e) => {
+        if (e.key == 'Enter') {
+            handleSubmit(e);
         }
     }
 
     return (
-        <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl relative">
-            <form
-                onSubmit={handleSubmit}
-                method="get"
-                className="flex min-w-56"
-            >
+        <div className="flex-grow bg-slate-50 border border-slate-600 rounded-3xl h-12 text-xl">
+            <form onSubmit={handleSubmit} className="flex min-w-56">
                 <button
                     className="p-1 disabled:opacity-50 w-10 ms-4 mt-2"
                     type="submit"
@@ -164,8 +168,8 @@ function SearchBar() {
                     type="text"
                     id="search"
                     name="q"
-                    value={data.q}
-                    onChange={(e) => setData('q', e.target.value)}
+                    onChange={e => setData('q', e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder="Search for anything"
                     className="w-full h-8 mt-2 ms-3 me-6 border-none outline-none focus:border-none focus:outline-none focus:ring-0 bg-inherit"
                 />
@@ -176,7 +180,6 @@ function SearchBar() {
         </div>
     );
 }
-
 
 function Category({ children }) {
     return (
