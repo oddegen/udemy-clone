@@ -92,8 +92,7 @@ export default function CoursePage({auth}) {
     },
   ];
   
-  const { props } = usePage();
-  const { courseId } = props;
+  const { course } = usePage().props;
   return (
     <AuthenticatedLayout user={auth.user}>
       <Head title='course' />  
@@ -103,7 +102,7 @@ export default function CoursePage({auth}) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             
             <div className="p-6 text-gray-900">
-              Cource Details Page for course id {courseId}
+              Cource Details Page for course id {course.id}
                 <CourseList /> 
                 <CourseReview /> 
               <CardList/>
